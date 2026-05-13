@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Dust Init - One-line installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/yourusername/dust/main/install.sh | sudo bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/freeDustInit/src/main/install.sh | sudo bash
 #
 
 set -e
