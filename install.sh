@@ -14,25 +14,19 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://github.com/freeDustInit/src/"
+REPO_URL="https://github.com/freeDustInit/src"
 VERSION="${VERSION:-latest}"
 INSTALL_PREFIX="${INSTALL_PREFIX:-/usr}"
 
 # Functions
 print_banner() {
     echo -e "${BLUE}"
-    echo "╔════════════════════════════════════════════════════════╗"
-    echo "║                                                        ║"
-    echo "║     ██████╗ ██╗   ██╗███████╗████████╗                 ║"
-    echo "║     ██╔══██╗██║   ██║██╔════╝╚══██╔══╝                 ║"
-    echo "║     ██║  ██║██║   ██║███████╗   ██║                    ║"
-    echo "║     ██║  ██║██║   ██║╚════██║   ██║                    ║"
-    echo "║     ██████╔╝╚██████╔╝███████║   ██║                    ║"
-    echo "║     ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝                    ║"
-    echo "║                                                        ║"
-    echo "║     Lightweight Init System for Linux                  ║"
-    echo "║                                                        ║"
-    echo "╚════════════════════════════════════════════════════════╝"
+    echo "██████╗ ██╗   ██╗███████╗████████╗"
+    echo "██╔══██╗██║   ██║██╔════╝╚══██╔══╝"
+    echo "██║  ██║██║   ██║███████╗   ██║"
+    echo "██║  ██║██║   ██║╚════██║   ██║"
+    echo "███████╝╚██████╔╝███████║   ██║"
+    echo "╚════╝  ╚═════╝ ╚══════╝   ╚═╝"
     echo -e "${NC}"
 }
 
@@ -98,31 +92,44 @@ download_release() {
     log_info "Detected architecture: $arch"
     log_info "Detected OS: $os"
     
-    if [[ "$version" == "latest" ]]; then
-        log_info "Downloading latest release..."
-        # In a real scenario, this would query the GitHub API
-        # For now, we'll use a placeholder URL
-        DOWNLOAD_URL="${REPO_URL}/releases/latest/download/dust-${arch}.tar.gz"
-    else
-        log_info "Downloading version $version..."
-        DOWNLOAD_URL="${REPO_URL}/releases/download/v${version}/dust-${arch}.tar.gz"
+    # Warning for non-amd64 architectures
+    if [[ "$arch" != "amd64" ]]; then
+        log_warning "Non-amd64 architecture detected ($arch)"
+        log_warning "Pre-built binaries are only available for amd64 (x86_64)"
+        log_warning "The installer will attempt to build from source instead"
+        log_info ""
+        
+        # Automatically switch to build from source
+        BUILD_FROM_SOURCE=1
+        build_from_source
+        return
     fi
     
     # Create temporary directory
     TMP_DIR=$(mktemp -d)
     trap "rm -rf $TMP_DIR" EXIT
     
-    log_info "Downloading from: $DOWNLOAD_URL"
+    # Determine download URLs
+    if [[ "$version" == "latest" ]]; then
+        log_info "Downloading latest release..."
+        DUST_INIT_URL="${REPO_URL}/releases/latest/download/dust-init"
+        DUST_URL="${REPO_URL}/releases/latest/download/dust"
+    else
+        log_info "Downloading version $version..."
+        DUST_INIT_URL="${REPO_URL}/releases/download/v${version}/dust-init"
+        DUST_URL="${REPO_URL}/releases/download/v${version}/dust"
+    fi
     
-    # Download the release
+    # Download dust-init
+    log_info "Downloading dust-init from: $DUST_INIT_URL"
     if command -v curl &> /dev/null; then
-        curl -fsSL "$DOWNLOAD_URL" -o "$TMP_DIR/dust.tar.gz" || {
-            log_error "Failed to download release"
+        curl -fsSL "$DUST_INIT_URL" -o "$TMP_DIR/dust-init" || {
+            log_error "Failed to download dust-init"
             exit 1
         }
     elif command -v wget &> /dev/null; then
-        wget -q "$DOWNLOAD_URL" -O "$TMP_DIR/dust.tar.gz" || {
-            log_error "Failed to download release"
+        wget -q "$DUST_INIT_URL" -O "$TMP_DIR/dust-init" || {
+            log_error "Failed to download dust-init"
             exit 1
         }
     else
@@ -130,12 +137,22 @@ download_release() {
         exit 1
     fi
     
-    # Extract the archive
-    log_info "Extracting archive..."
-    tar -xzf "$TMP_DIR/dust.tar.gz" -C "$TMP_DIR" || {
-        log_error "Failed to extract archive"
+    # Download dust
+    log_info "Downloading dust from: $DUST_URL"
+    if command -v curl &> /dev/null; then
+        curl -fsSL "$DUST_URL" -o "$TMP_DIR/dust" || {
+            log_error "Failed to download dust"
+            exit 1
+        }
+    elif command -v wget &> /dev/null; then
+        wget -q "$DUST_URL" -O "$TMP_DIR/dust" || {
+            log_error "Failed to download dust"
+            exit 1
+        }
+    else
+        log_error "Neither curl nor wget is installed"
         exit 1
-    }
+    fi
     
     # Install binaries
     log_info "Installing binaries..."
