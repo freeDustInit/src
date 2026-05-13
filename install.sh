@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Dust Init - One-line installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/yourusername/dust/main/install.sh | sudo bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/freeDustInit/src/main/install.sh | sudo bash
 #
 
 set -e
@@ -14,7 +14,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://github.com/yourusername/dust"
+REPO_URL="https://github.com/freeDustInit/src/"
 VERSION="${VERSION:-latest}"
 INSTALL_PREFIX="${INSTALL_PREFIX:-/usr}"
 
