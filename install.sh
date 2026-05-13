@@ -14,7 +14,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_URL="https://github.com/yourusername/dust"
+REPO_URL="https://github.com/freeDustInit/src/"
 VERSION="${VERSION:-latest}"
 INSTALL_PREFIX="${INSTALL_PREFIX:-/usr}"
 
