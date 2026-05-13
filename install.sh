@@ -116,8 +116,8 @@ download_release() {
         DUST_URL="${REPO_URL}/releases/latest/download/dust"
     else
         log_info "Downloading version $version..."
-        DUST_INIT_URL="${REPO_URL}/releases/download/v${version}/dust-init"
-        DUST_URL="${REPO_URL}/releases/download/v${version}/dust"
+        DUST_INIT_URL="${REPO_URL}/releases/download/${version}/dust-init"
+        DUST_URL="${REPO_URL}/releases/download/${version}/dust"
     fi
     
     # Download dust-init
