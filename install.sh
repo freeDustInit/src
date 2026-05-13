@@ -109,16 +109,10 @@ download_release() {
     TMP_DIR=$(mktemp -d)
     trap "rm -rf $TMP_DIR" EXIT
     
-    # Determine download URLs
-    if [[ "$version" == "latest" ]]; then
-        log_info "Downloading latest release..."
-        DUST_INIT_URL="${REPO_URL}/releases/latest/download/dust-init"
-        DUST_URL="${REPO_URL}/releases/latest/download/dust"
-    else
-        log_info "Downloading version $version..."
-        DUST_INIT_URL="${REPO_URL}/releases/download/${version}/dust-init"
-        DUST_URL="${REPO_URL}/releases/download/${version}/dust"
-    fi
+    # Only latest version is supported for binary downloads
+    log_info "Downloading latest release..."
+    DUST_INIT_URL="${REPO_URL}/releases/latest/download/dust-init"
+    DUST_URL="${REPO_URL}/releases/latest/download/dust"
     
     # Download dust-init
     log_info "Downloading dust-init from: $DUST_INIT_URL"
