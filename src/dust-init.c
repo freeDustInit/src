@@ -15,6 +15,7 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/reboot.h>
+#include <sys/sysmacros.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <time.h>
