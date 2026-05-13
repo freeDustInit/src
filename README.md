@@ -1,5 +1,7 @@
 # 💨 freeDustInit
 
+<img src="assets/banner.png">
+
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/freeDustInit/src)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
