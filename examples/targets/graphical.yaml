@@ -1,0 +1,10 @@
+# Graphical target
+# This target provides a graphical user interface
+
+[Unit]
+Description=Graphical Interface
+Requires=multi-user.target
+After=multi-user.target
+
+# Wants display manager service
+Wants=display-manager.service

@@ -1,0 +1,10 @@
+# Rescue target
+# Single-user rescue mode for system recovery
+
+[Unit]
+Description=Rescue Mode
+Requires=sysinit.target
+After=sysinit.target
+Conflicts=multi-user.target graphical.target
+
+# This target isolates the system to single-user mode

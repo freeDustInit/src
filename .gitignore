@@ -1,0 +1,46 @@
+# Build artifacts
+*.o
+*.so
+*.a
+dust-init
+dust
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test artifacts
+*.log
+test-results/
+coverage/
+
+# Documentation build
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Package files
+*.deb
+*.rpm
+*.tar.gz
+*.zip
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Core dumps
+core
+core.*
+vgcore.*
+
+# Dependencies (if using submodules or vendoring)
+deps/
+vendor/

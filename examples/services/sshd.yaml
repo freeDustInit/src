@@ -1,0 +1,15 @@
+# SSH daemon service
+[Unit]
+Description=OpenSSH server daemon
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/sshd
+ExecReload=/usr/sbin/sshd -t && kill -HUP $MAINPID
+ExecStop=/usr/bin/killall sshd
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

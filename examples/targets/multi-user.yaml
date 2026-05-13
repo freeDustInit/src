@@ -1,0 +1,11 @@
+# Multi-user target
+# This is the standard target for a multi-user system with networking
+
+[Unit]
+Description=Multi-User System
+Requires=basic.target
+After=basic.target
+Conflicts=rescue.target
+
+# This target wants these services to be running
+Wants=network.target

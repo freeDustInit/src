@@ -1,0 +1,7 @@
+# Boot target
+# This target is used during the early boot process
+
+[Unit]
+Description=Early Boot Target
+Requires=local-fs.target
+After=local-fs.target

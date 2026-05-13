@@ -1,0 +1,12 @@
+# Cron daemon service
+[Unit]
+Description=Regular background program processing daemon
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/cron
+ExecReload=/usr/bin/killall -HUP cron
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
