@@ -1,6 +1,6 @@
 # 💨 freeDustInit
 
-<img src="assets/banner.png" width="2048" height="1024">
+<img src="assets/banner.png" width="1024" height="512">
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/freeDustInit/src)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
